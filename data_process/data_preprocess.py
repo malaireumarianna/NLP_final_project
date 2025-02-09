@@ -146,7 +146,9 @@ class DataProcessor:
 # Main execution
 if __name__ == "__main__":
     DATA_DIR = get_project_dir(conf['general']['data_dir'])
-    train_file = 'train.csv'
-    test_file = 'test.csv'
+    train_file = 'final_project_train_dataset/train.csv'
+    test_file = 'final_project_test_dataset/test.csv'
+
+    #os.path.join(self.data_dir, file_path)
     data_proc = DataProcessor(DATA_DIR, train_file, test_file)
     data_proc.data_preprocess()
