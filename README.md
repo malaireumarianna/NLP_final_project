@@ -137,3 +137,30 @@ Replace `/path_to_your_local_model_directory`, `/path_to_your_input_folder`, and
 
 
 
+## Dataset description
+
+![image](https://github.com/user-attachments/assets/7a82cd69-c3a6-418a-b75b-1d31a8664aee)
+
+```bash
+Top 10 positive words: [('br', 43805), ('film', 31762), ('movie', 28754), ('one', 20914), ('like', 13538), ('good', 11520), ('great', 10118), ('story', 9863), ('see', 9523), ('time', 9409)]
+Top 10 negative words: [('br', 46995), ('movie', 38097), ('film', 28097), ('one', 19987), ('like', 17494), ('even', 12062), ('bad', 11389), ('good', 11370), ('would', 10988), ('really', 9857)]
+```
+The most popular words describe used in dataset show its relation to movie reviews, in most popular positive words we can see some positive feedback as "like", "great". In negative there are some words showing negative feedback as "bad".
+
+![image](https://github.com/user-attachments/assets/48a6bd13-841c-426c-bffe-39ea58f08ba6)
+
+Both positive and negative sentiments have a median polarity near zero but the positive sentiment category shows a median slightly above zero.
+Both categories show a wide range of polarity from -1 to 1, indicating variability in the intensity of sentiment within each category. This suggests that there are positive texts with negative polarity scores and vice versa, which could be due to sarcasm, mixed sentiments, or inaccuracies in the polarity scoring method.
+There are numerous outliers in both categories, especially in the positive category, where some reviews have extremely negative polarity scores
+
+![image](https://github.com/user-attachments/assets/9f8e99a2-bc2c-4990-8045-677d2abdc47c)
+
+Both positive and negative reviews show a similar distribution shape, with most reviews being relatively short. The distribution is heavily skewed to the right, indicating that longer reviews are less common.
+The two distributions largely overlap, but the positive sentiment reviews appear slightly more concentrated in the lower word count range than negative reviews
+
+![image](https://github.com/user-attachments/assets/b485ebca-f8c1-4d48-9147-1db7f1ec1c13)
+
+The most prominent words in the cloud are "movie," "time," "good," "great," and "story."
+The usage of words like "better," "best," "original," and "perfect" show that reviewers often compare the movie to others.
+
+
