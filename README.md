@@ -4,7 +4,7 @@
 This project has a modular structure, where each folder has a specific duty.
 
 ```
-MLE_basic_example
+NLP_final_project
 ├── data                      # Data files used for training and inference (it can be generated with data_generation.py script)
 │   ├── test.csv
 │   └── train.csv
