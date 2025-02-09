@@ -1,0 +1,21 @@
+{
+    "general": {
+        "random_state": 42,
+        "status": "test",
+        "datetime_format": "%d.%m.%Y_%H.%M",
+        "data_dir": "data",
+        "models_dir": "models",
+        "results_dir": "results"
+    },
+    "train": {
+        "table_name": "train.npz",
+        "y_table_name" : "train_sentiment.npy",
+        "data_sample": 50,
+        "test_size": 0.3
+    },
+    "inference": {
+        "inp_table_name": "test.npz",
+        "inf_y_table_name" : "test_sentiment.npy",
+        "model_name": "prod_model.pickle" 
+    }
+}
