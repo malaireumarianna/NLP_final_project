@@ -9,7 +9,8 @@ NLP_final_project
 │   ├── test.csv
 │   └── train.csv
 ├── data_process              # Scripts used for data processing and generation
-│   ├── data_generation.py
+│   ├── data_preprocess.py
+│   ├── data_download.py
 │   └── __init__.py           
 ├── inference                 # Scripts and Dockerfiles used for inference
 │   ├── Dockerfile
@@ -40,10 +41,11 @@ train.csv
 test.csv
 
 Data files should be downloaded from Epam platform and stored in the `data` directory, as train set is too big for storing on GitHub.
+This is done in `data_process/data_donwload.py`, so start from running this script.
 
 For generating correctly preprocessed data, use the script located at `data_process/data_preprocess.py`. The generated data is used to train the model and to test the inference. 
 Script is doing simple cleaning of text, removes stop words, tokenize and Lemmatize. Then, input features are  saved in .npz files, and target labels into .npy files.
-So, as result os script execution, `data` directory should contain these files:
+So, as result of script execution, `data` directory should contain these files:
 
 test.csv
 test.npz
