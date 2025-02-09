@@ -6,8 +6,8 @@ This project has a modular structure, where each folder has a specific duty.
 ```
 MLE_basic_example
 ├── data                      # Data files used for training and inference (it can be generated with data_generation.py script)
-│   ├── inference_data.csv
-│   └── train_data.csv
+│   ├── test.csv
+│   └── train.csv
 ├── data_process              # Scripts used for data processing and generation
 │   ├── data_generation.py
 │   └── __init__.py           
@@ -21,8 +21,8 @@ MLE_basic_example
 │   ├── Dockerfile
 │   ├── train.py
 │   └── __init__.py
-├── unittests                  # Scripts used for unittests
-│   └── unittests.py
+├── notebooks                  # Scripts used for analysis of dataset
+│   └── analysis.ipyb
 ├── utils.py                  # Utility functions and classes that are used in scripts
 ├── settings.json             # All configurable parameters and settings
 └── README.md
@@ -34,10 +34,27 @@ Keep in mind that you may need to pass the path to your config to the scripts. F
 Please note, some IDEs, including VSCode, may have problems detecting environment variables defined in the .env file. This is usually due to the extension handling the .env file. If you're having problems, try to run your scripts in a debug mode, or, as a workaround, you can hardcode necessary parameters directly into your scripts. Make sure not to expose sensitive data if your code is going to be shared or public. In such cases, consider using secret management tools provided by your environment.
 
 ## Data:
-Data is the cornerstone of any Machine Learning project. For generating the data, use the script located at `data_process/data_generation.py`. The generated data is used to train the model and to test the inference. Following the approach of separating concerns, the responsibility of data generation lies with this script.
+This is a dataset for binary sentiment classification. This is a set of 50,000 polar movie reviews for training and testing: 
+
+train.csv 
+test.csv
+
+Data files should be downloaded from Epam platform and stored in the `data` directory, as train set is too big for storing on GitHub.
+
+For generating correctly preprocessed data, use the script located at `data_process/data_preprocess.py`. The generated data is used to train the model and to test the inference. 
+Script is doing simple cleaning of text, removes stop words, tokenize and Lemmatize. Then, input features are  saved in .npz files, and target labels into .npy files.
+So, as result os script execution, `data` directory should contain these files:
+
+test.csv
+test.npz
+test_sentiment.npy
+train.csv
+train.npz
+train_sentiment.npy
+
 
 ## Training:
-The training phase of the ML pipeline includes preprocessing of data, the actual training of the model, and the evaluation and validation of the model's performance. All of these steps are performed by the script `training/train.py`.
+The training phase of the ML pipeline includes the actual training of the NN model, and the evaluation on validation set created from training data. All of these steps are performed by the script `training/train.py`.
 
 1. To train the model using Docker: 
 
@@ -51,6 +68,11 @@ docker run -it training_image /bin/bash
 ```
 In this directory can be found file `_logs_for_train.txt` which contains detailed logs for training process, accuracy and loss for testing the model on subset of train data.
 
+To read this file in terminal, use this command:
+```bash
+cat _logs_for_train.txt
+```
+
 - Enter the repository with models and copy the name of saved model by using commands below:
 ```bash
 cd models
@@ -58,6 +80,8 @@ cd models
 ```bash
 ls
 ```
+Here you will see model, so copy it's name for future.
+
 - Then exit to be able to run copying of model by docker command:
 ```bash
 exit
@@ -93,6 +117,10 @@ docker run -v /path_to_your_local_model_directory:/app/models -v /path_to_your_i
 docker run -it inference_image /bin/bash  
 ```
 In this directory can be found file `_logs_for_test.txt` which contains detailed logs for inference.
+To read this file in terminal, use this command:
+```bash
+cat _logs_for_test.txt
+```
 
 After that ensure that you have your results in the `results` directory in your inference container. It should contain csv file with the Predicted values.
 
@@ -105,14 +133,5 @@ python inference/run.py
 
 Replace `/path_to_your_local_model_directory`, `/path_to_your_input_folder`, and `/path_to_your_output_folder` with actual paths on your local machine or network where your models, input, and output are stored.
 
-## Unittesting
 
-1. TestEvaluateModel
-This test class is designed to evaluate the performance of a model on datasets with and without target labels. It uses a neural network model (IrisNN), which is used for the Iris dataset. It tests scripts from inference/run.py, which contains script for inference without target variable or in case of its presence, like in ours it will calculate loss and accuracy.
-It contains two tests - test_evaluate_with_targets and test_evaluate_without_targets.
 
-2. TestDataProcessor
-This class tests the functionality of a DataProcessor class from train.py that is used for preparing data. This checks whether the data is trimmed to a specified size correctly.
-
-3. TestTraining
-This test class checks the training process of a machine learning model.
