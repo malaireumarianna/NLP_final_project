@@ -194,5 +194,7 @@ class TextClassifier(nn.Module):
         return x
 Its accuracy is: 88.68%.
 The best-performing model was used for further Docker containerization.
+Mode detailed script on EDA and data processing can be found here:
 
+https://colab.research.google.com/drive/1IgtVeRp5ShjnyMpDey3vwSOujMbTu_xA?usp=sharing
 
