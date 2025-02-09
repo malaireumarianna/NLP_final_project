@@ -156,11 +156,43 @@ There are numerous outliers in both categories, especially in the positive categ
 ![image](https://github.com/user-attachments/assets/9f8e99a2-bc2c-4990-8045-677d2abdc47c)
 
 Both positive and negative reviews show a similar distribution shape, with most reviews being relatively short. The distribution is heavily skewed to the right, indicating that longer reviews are less common.
-The two distributions largely overlap, but the positive sentiment reviews appear slightly more concentrated in the lower word count range than negative reviews
+The two distributions largely overlap, but the positive sentiment reviews appear slightly more concentrated in the lower word count range than negative reviews.
 
 ![image](https://github.com/user-attachments/assets/b485ebca-f8c1-4d48-9147-1db7f1ec1c13)
 
 The most prominent words in the cloud are "movie," "time," "good," "great," and "story."
 The usage of words like "better," "best," "original," and "perfect" show that reviewers often compare the movie to others.
+
+![image](https://github.com/user-attachments/assets/72c1f523-2fec-406b-8124-fb9da4e46bd2)
+
+
+## Data processing and model selection:
+
+I compared `WordNet Lemmatizer` and `PorterStemmer`. As well as two vectorizer methods - `CountVectorizer()` and `TfidfVectorizer()`.
+With NaiveBayes Classifier  `WordNet Lemmatizer` together with `TfidfVectorizer()` works slightly better on our dataset with accuracy 86.53%, so it would be the choice for the next models. 
+The next model used was Random Forest classifiers, which performed slightly worse than NB with accuracy 85.46%.
+The last model use was custom created Neural Network for binary classification:
+class TextClassifier(nn.Module):
+    def __init__(self, num_features):
+        super(TextClassifier, self).__init__()
+        self.fc1 = nn.Linear(num_features, 128)
+        self.relu = nn.ReLU()
+        self.dropout = nn.Dropout(0.5)
+        self.fc2 = nn.Linear(128, 64)
+        self.fc3 = nn.Linear(64, 1)
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.dropout(x)
+        x = self.fc2(x)
+        x = self.relu(x)
+        x = self.dropout(x)
+        x = self.fc3(x)
+        x = self.sigmoid(x)  # Ensure output is between 0 and 1
+        return x
+Its accuracy is: 88.68%.
+The best-performing model was used for further Docker containerization.
 
 
